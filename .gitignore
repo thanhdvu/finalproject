@@ -1,0 +1,21 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code settings
+.vscode/
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Google OAuth secrets
+client_secret.json
+token.json
+
+# System files
+.DS_Store
+Thumbs.db
