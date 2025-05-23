@@ -1,7 +1,7 @@
 import streamlit as st
 import pydeck as pdk
 from datetime import date 
-from backend import civil_complaint
+from backend import civil_complaint, submit_complaint
 
 def show_main_page():
     st.subheader("민원 접수를 시작해보세요!")
@@ -12,6 +12,9 @@ def show_main_page():
     # 좌표 상태 초기화
     if "clicked_latlon" not in st.session_state:
         st.session_state.clicked_latlon = (default_lat, default_lon)
+    
+    if "civil_list" not in st.session_state:
+        st.session_state.civil_list=[]
 
     # 선택된 위치를 지도에 표시할 데이터로 구성
     marker_data = [{
@@ -71,7 +74,14 @@ def show_main_page():
         if writer and content:
             complaint = civil_complaint(writer, content, lat, lon, written_date)
             st.session_state.civil_list.append(complaint)
-            st.success("✅ 민원이 등록되었습니다.")
+            
+            try: 
+                submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, created_date=written_date)
+                st.success("✅ 민원이 등록되었습니다.")
+            except Exception as e: 
+                st.error(f"❎ 민원 등록 실패 - 다시 입력해주세요")
+        
+        
         else:
             st.warning("작성자와 내용을 모두 입력하세요.")
             
