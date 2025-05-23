@@ -72,16 +72,13 @@ def show_main_page():
             
     if st.button("민원 등록"):
         if writer and content:
-            complaint = civil_complaint(writer, content, lat, lon, written_date)
-            st.session_state.civil_list.append(complaint)
-            
             try: 
+                complaint = civil_complaint(writer, content, lat, lon, written_date)
+                st.session_state.civil_list.append(complaint) 
                 submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, created_date=written_date)
                 st.success("✅ 민원이 등록되었습니다.")
             except Exception as e: 
                 st.error(f"❎ 민원 등록 실패 - 다시 입력해주세요")
-        
-        
         else:
             st.warning("작성자와 내용을 모두 입력하세요.")
             
@@ -93,7 +90,7 @@ def show_main_page():
                 st.write(str(c))
 
             # 지도에 모든 민원 위치 마커 표시
-            map_data = [{"lat": c.lat, "lon": c.lon} for c in st.session_state.civil_list]
+            map_data = [{"lat": c.latitude, "lon": c.longitude} for c in st.session_state.civil_list]
 
             st.subheader("🗺️ 민원 위치 지도")
             st.pydeck_chart(pdk.Deck(
