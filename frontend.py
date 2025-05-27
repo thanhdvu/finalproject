@@ -25,25 +25,33 @@ def show_main_page():
     }]
 
     # 지도 표시 (마커 포함)
+    map_data = [{
+    "lat": c.latitude,
+    "lon": c.longitude,
+    "text": c.content[:20] + "..." 
+    } for c in st.session_state.civil_list]
+    
+    st.subheader("🗺️ 민원 위치 지도")
     st.pydeck_chart(pdk.Deck(
-        map_style='mapbox://styles/mapbox/streets-v11',  # 스타일은 light 또는 None으로
+        map_style='light',
         initial_view_state=pdk.ViewState(
-            latitude=st.session_state.clicked_latlon[0],
-            longitude=st.session_state.clicked_latlon[1],
-            zoom=15,
-            pitch=0,
+            latitude=default_lat,
+            longitude=default_lon,
+            zoom=11
         ),
         layers=[
             pdk.Layer(
                 "ScatterplotLayer",
-                data=marker_data,
+                data=map_data,
                 get_position='[lon, lat]',
-                get_color='[255, 0, 0, 160]',
-                get_radius=100,
-            ),
+                get_fill_color='[0, 0, 255, 160]',
+                get_radius=120,
+                pickable=True  # ✅ 툴팁 활성화 위해 꼭 필요
+            )
         ],
-        tooltip={"text": "선택한 위치입니다."},
+        tooltip={"text": "{text}"}  # ✅ text 필드를 툴팁으로 지정
     ))
+
     # 수동 입력 받기
     lat = st.number_input("📍 위도 (Latitude)", value=st.session_state.clicked_latlon[0], format="%.6f")
     lon = st.number_input("📍 경도 (Longitude)", value=st.session_state.clicked_latlon[1], format="%.6f")
