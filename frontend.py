@@ -109,3 +109,17 @@ def show_main_page():
             ))
         else:
             st.info("아직 등록된 민원이 없습니다.")
+    st.markdown("---")
+    st.subheader("🔍 작성자별 민원 조회")
+
+    query_user = st.text_input("조회할 작성자 이름 입력")
+
+    if st.button("조회"):
+        filtered = [c for c in st.session_state.civil_list if c.user == query_user]
+        
+        if filtered:
+            st.success(f"✅ '{query_user}'님의 민원 {len(filtered)}건")
+            for c in filtered:
+                st.write(str(c))
+        else:
+            st.info("해당 작성자의 민원이 없습니다.")
