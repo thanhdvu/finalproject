@@ -2,6 +2,8 @@ import streamlit as st
 import pydeck as pdk
 from datetime import date 
 from backend import civil_complaint, submit_complaint
+import pandas as pd
+from collections import Counter
 
 def show_main_page():
     st.subheader("민원 접수를 시작해보세요!")
@@ -109,6 +111,8 @@ def show_main_page():
             ))
         else:
             st.info("아직 등록된 민원이 없습니다.")
+
+    #민원 조회
     st.markdown("---")
     st.subheader("🔍 작성자별 민원 조회")
 
@@ -123,3 +127,21 @@ def show_main_page():
                 st.write(str(c))
         else:
             st.info("해당 작성자의 민원이 없습니다.")
+
+
+
+    # 각 날짜별 민원 수 
+    st.markdown("---")
+    st.subheader("📊 날짜별 민원 접수 추이")
+
+    date_list = [c.created_date for c in st.session_state.civil_list]
+
+    date_counts = Counter(date_list)
+
+    chart_data = pd.DataFrame(date_counts.items(), columns=["날짜", "민원수"]).sort_values("날짜")
+
+    if not chart_data.empty:
+        st.bar_chart(chart_data.set_index("날짜"))
+    else:
+        st.info("시각화할 민원이 없습니다.")
+
