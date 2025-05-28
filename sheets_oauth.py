@@ -31,7 +31,7 @@ def setup_sheet_headers():
     headers = [["작성자", "내용", "위도", "경도", "작성일", "제출 시간"]]
     service.spreadsheets().values().update(
         spreadsheetId=SPREADSHEET_ID,
-        range="Sheet1!A1:E1",
+        range="Sheet1!A1:F1",
         valueInputOption="RAW",
         body={"values": headers}
     ).execute()
