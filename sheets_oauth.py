@@ -1,9 +1,11 @@
 import os
+import pytz #시간대(timezone) 처리를 위한 라이브러리
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from collections import Counter
+from datetime import datetime
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SPREADSHEET_ID = '1DkyKTgoc3vQuzp189kFeAxbaGgRPb9Z0EpSQp32YNfY'  
@@ -26,7 +28,7 @@ def main(): #basic usage of the Sheets API
 
 def setup_sheet_headers():
     service = main()
-    headers = [["작성자", "내용", "위도", "경도", "작성일"]]
+    headers = [["작성자", "내용", "위도", "경도", "작성일", "제출 시간"]]
     service.spreadsheets().values().update(
         spreadsheetId=SPREADSHEET_ID,
         range="Sheet1!A1:E1",
@@ -36,12 +38,15 @@ def setup_sheet_headers():
 
 def save_complaints_to_sheet(civil_complaint):
     service = main()
+    seoul_tz = pytz.timezone('Asia/Seoul')
+    submit_time = datetime.now(seoul_tz).strftime('%Y-%m-%d %H:%M:%S') # 현재 시간을 한국 표준시로 가져오기
     values = [[
         civil_complaint.user, 
         civil_complaint.content, 
         civil_complaint.latitude, 
         civil_complaint.longitude, 
-        str(civil_complaint.created_date)
+        str(civil_complaint.created_date),
+        submit_time
         ]]
     body = {'values': values}
     service.spreadsheets().values().append(

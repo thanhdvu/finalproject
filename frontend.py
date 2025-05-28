@@ -1,9 +1,10 @@
 import streamlit as st
 import pydeck as pdk
-from datetime import date 
+from datetime import date, datetime
 from backend import civil_complaint, submit_complaint
 import pandas as pd
 from collections import Counter
+import pytz #시간대(timezone) 처리를 위한 라이브러리
 
 def show_main_page():
     st.subheader("민원 접수를 시작해보세요!")
@@ -86,7 +87,9 @@ def show_main_page():
                 complaint = civil_complaint(writer, content, lat, lon, written_date)
                 st.session_state.civil_list.append(complaint) 
                 submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, created_date=written_date)
-                st.success("✅ 민원이 등록되었습니다.")
+                seoul_tz = pytz.timezone('Asia/Seoul')
+                submit_time = datetime.now(seoul_tz).strftime('%Y-%m-%d %H:%M:%S') # 현재 시간을 한국 표준시로 가져오기
+                st.success(f"✅ 민원이 등록되었습니다. (제출 시간: {submit_time})")
             except Exception as e: 
                 st.error(f"❎ 민원 등록 실패 - 다시 입력해주세요")
         else:
