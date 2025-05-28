@@ -1,5 +1,7 @@
 from datetime import date
-from sheets_oauth import save_complaints_to_sheet
+from sheets_oauth import setup_sheet_headers, save_complaints_to_sheet
+
+setup_sheet_headers()
 
 class civil_complaint:
     def __init__(self, user, content, latitude, longitude, created_date=None):
