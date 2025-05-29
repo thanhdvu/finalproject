@@ -6,8 +6,7 @@ import pandas as pd
 from collections import Counter
 import pytz #시간대(timezone) 처리를 위한 라이브러리
 
-def show_main_page():
-    st.subheader("민원 접수를 시작해보세요!")
+def show_main_page_kr():
 
     # 기본 위치: 서울
     default_lat, default_lon = 37.5665, 126.9780
