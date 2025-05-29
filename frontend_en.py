@@ -55,6 +55,7 @@ def show_main_page_en():
 
     writer = st.text_input("Writer's Name")
     content = st.text_area("Complaint Content")
+    complaint_type = st.selectbox("Select Complaint Type", ["Facility", "Environment", "Noise", "Others"])  
     written_date = st.date_input("Date of Submission", value=date.today())
 
     if st.button("Preview Complaint"):
@@ -62,6 +63,7 @@ def show_main_page_en():
             st.success("✅ Complaint Preview")
             st.write(f"**Writer:** {writer}")
             st.write(f"**Content:** {content}")
+            st.write(f"**Type:** {complaint_type}")
             st.write(f"**Date:** {written_date}")
             st.write(f"**Location:** Latitude {st.session_state.clicked_latlon[0]:.6f}, Longitude {st.session_state.clicked_latlon[1]:.6f}")
         else:
@@ -70,9 +72,9 @@ def show_main_page_en():
     if st.button("Submit Complaint"):
         if writer and content:
             try:
-                complaint = civil_complaint(writer, content, lat, lon, written_date)
+                complaint = civil_complaint(writer, content, lat, lon, complaint_type, written_date)
                 st.session_state.civil_list.append(complaint)
-                submit_complaint(writer, content, lat, lon, written_date)
+                submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, complaint_type=complaint_type, created_date=written_date)
                 seoul_tz = pytz.timezone('Asia/Seoul')
                 submit_time = datetime.now(seoul_tz).strftime('%Y-%m-%d %H:%M:%S')
                 st.success(f"✅ Complaint submitted successfully. (Submission Time: {submit_time})")

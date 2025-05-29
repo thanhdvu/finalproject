@@ -67,6 +67,7 @@ def show_main_page_kr():
     # 민원 작성 폼
     writer = st.text_input("작성자 이름")
     content = st.text_area("민원 내용")
+    complaint_type = st.selectbox("민원 종류 선택", ["시설", "환경", "소음", "기타"])
     written_date = st.date_input("작성일", value=date.today())
 
     # 제출 후 미리보기 출력
@@ -75,6 +76,7 @@ def show_main_page_kr():
             st.success("✅ 민원 미리보기")
             st.write(f"**작성자:** {writer}")
             st.write(f"**내용:** {content}")
+            st.write(f"**민원 종류:** {complaint_type}")
             st.write(f"**작성일:** {written_date}")
             st.write(f"**위치:** 위도 {st.session_state.clicked_latlon[0]:.6f}, 경도 {st.session_state.clicked_latlon[1]:.6f}")
         else:
@@ -83,9 +85,9 @@ def show_main_page_kr():
     if st.button("민원 등록"):
         if writer and content:
             try: 
-                complaint = civil_complaint(writer, content, lat, lon, written_date)
+                complaint = civil_complaint(writer, content, lat, lon, complaint_type, written_date)
                 st.session_state.civil_list.append(complaint) 
-                submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, created_date=written_date)
+                submit_complaint(user=writer, content=content, latitude=lat, longitude=lon, complaint_type=complaint_type, created_date=written_date)
                 seoul_tz = pytz.timezone('Asia/Seoul')
                 submit_time = datetime.now(seoul_tz).strftime('%Y-%m-%d %H:%M:%S') # 현재 시간을 한국 표준시로 가져오기
                 st.success(f"✅ 민원이 등록되었습니다. (제출 시간: {submit_time})")
