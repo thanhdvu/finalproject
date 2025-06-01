@@ -48,9 +48,9 @@ def show_map ():
             location=[item["lat"], item["lon"]],
             tooltip=item["tooltip"]
         ).add_to(map_m)
-    st_folium(map_m, width=700, height=500)    
+    st_folium(map_m, width="100%", height=500)    
 
-def show_main_page():
+def show_main_page_kr():
     # 지도 표시 
     st.subheader("민원 접수를 시작해보세요!")
 
