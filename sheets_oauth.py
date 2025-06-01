@@ -28,10 +28,10 @@ def main(): #basic usage of the Sheets API
 
 def setup_sheet_headers():
     service = main()
-    headers = [["작성자", "내용", "위도", "경도", "작성일", "제출 시간"]]
+    headers = [["작성자", "내용", "위도", "경도", "작성일", "제출 시간", "민원 종류"]]
     service.spreadsheets().values().update(
         spreadsheetId=SPREADSHEET_ID,
-        range="Sheet1!A1:F1",
+        range="Sheet1!A1:G1",
         valueInputOption="RAW",
         body={"values": headers}
     ).execute()
@@ -46,7 +46,8 @@ def save_complaints_to_sheet(civil_complaint):
         civil_complaint.latitude, 
         civil_complaint.longitude, 
         str(civil_complaint.created_date),
-        submit_time
+        submit_time,
+        civil_complaint.complaint_type
         ]]
     body = {'values': values}
     service.spreadsheets().values().append(
