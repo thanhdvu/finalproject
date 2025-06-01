@@ -40,10 +40,6 @@ def initialize_location():
                 st.error(f"❗ 민원 로딩 실패 - {e}, row: {row}")
         st.session_state.civil_list = complaints
 
-    if "civil_list" in st.session_state: 
-        st.success(f"✅ 총 {len(st.session_state.civil_list)}건의 민원이 불러와졌습니다.")
-
-
 def get_selected_coordinates (output): 
     if output and output["last_clicked"]:
         lat = output["last_clicked"]["lat"]
@@ -130,6 +126,9 @@ def show_main_page_kr():
     #등록된 민원 지도로 보기  
     st.markdown("---")
     st.subheader("📋 등록된 민원 목록")
+
+    if "civil_list" in st.session_state: 
+        st.success(f"✅ 총 {len(st.session_state.civil_list)}건의 민원이 불러와졌습니다.")
 
     if st.session_state.civil_list:
         for c in st.session_state.civil_list:
