@@ -6,6 +6,7 @@ from collections import Counter
 import pytz
 import folium
 from streamlit_folium import st_folium
+from sheets_oauth import load_all_complaints
 
 #기본 사항 
 default_lat, default_lon = 37.5665, 126.9780 #서울 
@@ -16,7 +17,32 @@ def initialize_location():
         st.session_state.clicked_latlon = (default_lat, default_lon)
     
     if "civil_list" not in st.session_state:
-        st.session_state.civil_list=[]
+        raw_data = load_all_complaints ()
+        st.write("raw_data", raw_data)
+        complaints = []
+        for row in raw_data: 
+            try: 
+                created = pd.to_datetime(row[4], errors='coerce')
+                if pd.isna(created): 
+                    st.warning(f"⛔ 잘못된 날짜: {row[4]}")
+                    continue
+
+                complaint = civil_complaint(        
+                    user=row[0],
+                    content=row[1],
+                    latitude=float(row[2]),
+                    longitude=float(row[3]),
+                    complaint_type=row[5] if len(row) > 5 else "",  
+                    created_date=created.date()
+                )
+                complaints.append(complaint)
+            except Exception as e:
+                st.error(f"❗ 민원 로딩 실패 - {e}, row: {row}")
+        st.session_state.civil_list = complaints
+
+    if "civil_list" in st.session_state: 
+        st.success(f"✅ 총 {len(st.session_state.civil_list)}건의 민원이 불러와졌습니다.")
+
 
 def get_selected_coordinates (output): 
     if output and output["last_clicked"]:
@@ -29,6 +55,7 @@ def get_selected_coordinates (output):
     return st.session_state.clicked_latlon 
 
 def select_map(): 
+    lat, lon = st.session_state.clicked_latlon 
     m = folium.Map(location=[default_lat, default_lon], zoom_start=13)
     m.add_child(folium.LatLngPopup())
     return st_folium(m, width="100%", height=500)
@@ -57,7 +84,6 @@ def show_main_page_kr():
     initialize_location ()
     output = select_map ()
     lat, lon = get_selected_coordinates(output) 
-    default_lat, default_lon = 37.5665, 126.9780
 
     lat = st.number_input("📍 위도 (Latitude)", value=st.session_state.clicked_latlon[0], format="%.6f")
     lon = st.number_input("📍 경도 (Longitude)", value=st.session_state.clicked_latlon[1], format="%.6f")
