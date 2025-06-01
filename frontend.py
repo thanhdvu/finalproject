@@ -88,33 +88,25 @@ def show_main_page():
         else:
             st.warning("작성자와 내용을 모두 입력하세요.")
             
-        st.markdown("---")
-        st.subheader("📋 등록된 민원 목록")
+    st.markdown("---")
+    st.subheader("📋 등록된 민원 목록")
 
-        if st.session_state.civil_list:
-            for c in st.session_state.civil_list:
-                st.write(str(c))
+    if st.session_state.civil_list:
+        for c in st.session_state.civil_list:
+            st.write(str(c))
 
-            # 지도에 모든 민원 위치 마커 표시
-            map_data = [{"lat": c.latitude, "lon": c.longitude} for c in st.session_state.civil_list]
+        # 지도에 모든 민원 위치 마커 표시
+        map_data = [{"lat": c.latitude, "lon": c.longitude, "tooltip": c.content[:20] + "..."} for c in st.session_state.civil_list]
 
-            st.subheader("🗺️ 민원 위치 지도")
-            st.pydeck_chart(pdk.Deck(
-                map_style='light',
-                initial_view_state=pdk.ViewState(
-                    latitude=default_lat, longitude=default_lon, zoom=11),
-                layers=[
-                    pdk.Layer(
-                        "ScatterplotLayer",
-                        data=map_data,
-                        get_position='[lon, lat]',
-                        get_color='[0, 0, 255, 160]',
-                        get_radius=120,
-                    ),
-                ]
-            ))
-        else:
-            st.info("아직 등록된 민원이 없습니다.")
+        map_m = folium.Map(location=[default_lat, default_lon], zoom_start=11)
+        for item in map_data:
+            folium.Marker(
+                location=[item["lat"], item["lon"]],
+                tooltip=item["tooltip"]
+            ).add_to(map_m)
+        st_folium(map_m, width=700, height=500)
+    else:
+        st.info("아직 등록된 민원이 없습니다.")
 
     #민원 조회
     st.markdown("---")
