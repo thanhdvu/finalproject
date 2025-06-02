@@ -2,6 +2,10 @@ import streamlit as st
 from streamlit_folium import st_folium
 import folium
 from datetime import date
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from backend import submit_complaint
 
 st.set_page_config(page_title="민원 신고하기")
 
@@ -39,7 +43,7 @@ st.subheader("✍️ 민원 내용 입력")
 writer = st.text_input("작성자 이름")
 content = st.text_area("민원 내용")
 written_date = st.date_input("작성일", value=date.today())
-complaint_type=st.text_input("민원 유형 - 생활환경/안전/소음 중 택1")
+complaint_type=st.selectbox("민원 유형", ["생활환경", "시설/안전", "소음/교통"])
 
 #미리보기 
 if st.button("민원 미리보기"):
@@ -52,14 +56,20 @@ if st.button("민원 미리보기"):
     else:
         st.warning("작성자와 내용을 모두 입력하세요.")
 
- #민원 등록  
+#민원 등록  
 if st.button("민원 등록"):
     if writer and content:
         try:
-            # 임시로 콘솔 출력 또는 저장 없이 성공 메시지만
-            st.success("✅ 민원이 등록되었습니다.")
-            st.info("※ 실제 저장은 백엔드 연동 후 작동 예정입니다.")
+            submit_complaint(
+                user=writer,
+                content=content,
+                latitude=lat,
+                longitude=lon,
+                complaint_type=complaint_type,
+                created_date=written_date
+            )
+            st.success("✅ 민원이 등록되었습니다")
         except Exception as e:
-            st.error("❌ 민원 등록 실패")
+            st.error(f"❌ 민원 등록 실패: {e}")
     else:
         st.warning("작성자와 내용을 모두 입력하세요.")
