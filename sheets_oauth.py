@@ -9,7 +9,7 @@ from datetime import datetime
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SPREADSHEET_ID = '1DkyKTgoc3vQuzp189kFeAxbaGgRPb9Z0EpSQp32YNfY'  
-SHEET_RANGE = 'Sheet1!A1'
+SHEET_RANGE = 'Sheet1!A:G'
 
 def main(): #basic usage of the Sheets API
     creds = None

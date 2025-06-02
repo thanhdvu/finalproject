@@ -14,8 +14,8 @@ raw_data = load_all_complaints()
 if raw_data:
     df = pd.DataFrame(raw_data, columns=["작성자", "내용", "위도", "경도", "작성일", "제출 시간", "민원 종류"])
     df["작성일"] = pd.to_datetime(df["작성일"])
-    df["위도"] = df["위도"].astype(float)
-    df["경도"] = df["경도"].astype(float)
+    df["위도"] = df["위도"].str.replace(",", ".").astype(float)
+    df["경도"] = df["경도"].str.replace(",", ".").astype(float)
 else:
     df = pd.DataFrame()
 
@@ -26,10 +26,10 @@ st.subheader("1️⃣ 작성자별 민원 검색")
 writer_query = st.text_input("검색할 작성자 이름")
 
 if writer_query:
-    filtered = df[df["user"] == writer_query]
+    filtered = df[df["작성자"] == writer_query]
     if not filtered.empty:
         st.success(f"'{writer_query}'님의 민원 {len(filtered)}건이 검색되었습니다.")
-        st.dataframe(filtered[["날짜", "내용", "유형", "위도", "경도"]])
+        st.dataframe(filtered[["작성일", "내용", "민원 종류", "위도", "경도"]])
     else:
         st.warning("해당 작성자의 민원이 없습니다.")
 
@@ -61,7 +61,7 @@ if not df.empty:
         shortened = row["내용"][:20] + "..." if len(row["내용"]) > 20 else row["내용"]
         popup_text = f"""
         <b>{shortened}</b><br>
-        {row['작성자']} / {row['유형']}
+        {row['작성자']} / {row['민원 종류']}
         """
         popup_html = folium.Popup(popup_text, max_width=300)
 
@@ -75,8 +75,3 @@ if not df.empty:
     st_folium(m, height=400, width=700)
 else:
     st.info("표시할 민원이 없습니다.")
-
-# 나중에 sample_data가 처리될 부분 
-# from backend import load_all_complaints
-# df = load_all_complaints()
-
