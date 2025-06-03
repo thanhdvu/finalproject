@@ -12,7 +12,7 @@ st.set_page_config(page_title="❗️ 민원 신고하기 | Report a Complaint")
 lang = st.session_state.get('lang', 'Korean')
 
 if lang == 'Korean':
-    st.title("❗️ 민원 신고하기")
+    st.title("❗️ 민원 신고하기",)
     st.markdown("지도를 클릭해서 민원 위치를 선택하고, 아래 양식을 작성해 주세요.")
 else:
     st.title("❗️ Report a Complaint")
@@ -109,3 +109,21 @@ if st.button(submit_button):
             st.error(f"{submit_fail}: {e}")
     else:
         st.warning(preview_warning)
+
+
+
+if lang == 'Korean':
+    st.markdown("---") 
+    st.subheader("다른 페이지로 이동 👉🏻")
+    st.page_link("Home.py", label="홈 페이지", icon="🏠")
+    st.page_link("pages/1_How_To_Use.py", label="플랫폼 사용법", icon="👀")
+    st.page_link("pages/2_Submit_Complaint.py", label="민원 신고하기", icon="❗")
+    st.page_link("pages/3_Search_Complaints.py", label="민원 검색하기", icon="🔍")
+
+else:
+    st.markdown("---")
+    st.subheader("Go to other pages 👉🏻")
+    st.page_link("Home.py", label="Home", icon="🏠")
+    st.page_link("pages/1_How_To_Use.py", label="How to Use", icon="👀")
+    st.page_link("pages/2_Submit_Complaint.py", label="Report Complaint", icon="❗")
+    st.page_link("pages/3_Search_Complaints.py", label="Search Complaints", icon="🔍")

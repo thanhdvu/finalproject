@@ -88,3 +88,19 @@ if not df.empty:
     st_folium(m, height=400, width=700)
 else:
     st.info("표시할 민원이 없습니다." if lang == 'Korean' else "No complaints to display.")
+
+if lang == 'Korean':
+    st.markdown("---") 
+    st.subheader("다른 페이지로 이동 👉🏻")
+    st.page_link("Home.py", label="홈 페이지", icon="🏠")
+    st.page_link("pages/1_How_To_Use.py", label="플랫폼 사용법", icon="👀")
+    st.page_link("pages/2_Submit_Complaint.py", label="민원 신고하기", icon="❗")
+    st.page_link("pages/3_Search_Complaints.py", label="민원 검색하기", icon="🔍")
+
+else:
+    st.markdown("---")
+    st.subheader("Go to other pages 👉🏻")
+    st.page_link("Home.py", label="Home", icon="🏠")
+    st.page_link("pages/1_How_To_Use.py", label="How to Use", icon="👀")
+    st.page_link("pages/2_Submit_Complaint.py", label="Report Complaint", icon="❗")
+    st.page_link("pages/3_Search_Complaints.py", label="Search Complaints", icon="🔍")
