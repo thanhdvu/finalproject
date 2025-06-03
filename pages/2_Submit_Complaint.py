@@ -29,19 +29,23 @@ if "clicked_latlon" not in st.session_state:
 m = folium.Map(location=[default_lat, default_lon], zoom_start=12)
 m.add_child(folium.LatLngPopup())
 
+
 clicked = st_folium(m, height=400, width="100%")
 
-if clicked and clicked["last_clicked"]:
+info_box = st.empty()
+
+if clicked and clicked.get("last_clicked"):
     lat = clicked["last_clicked"]["lat"]
     lon = clicked["last_clicked"]["lng"]
     st.session_state.clicked_latlon = (lat, lon)
+    if lang == 'Korean':
+        st.info(f"선택된 위치: 위도 {lat:.5f}, 경도 {lon:.5f}")
+    else:
+        st.info(f"Selected location: Latitude {lat:.5f}, Longitude {lon:.5f}")
+
 
 # 현재 좌표 표시
 lat, lon = st.session_state.clicked_latlon
-if lang == 'Korean':
-    st.info(f"선택된 위치: 위도 {lat:.5f}, 경도 {lon:.5f}")
-else:
-    st.info(f"Selected location: Latitude {lat:.5f}, Longitude {lon:.5f}")  
 
 # 민원 내용 입력 
 st.markdown("---")

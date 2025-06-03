@@ -66,6 +66,8 @@ else:
 st.markdown("---")
 st.subheader("3️⃣ 전체 민원 지도 보기" if lang == 'Korean' else "3️⃣ View All Complaints on Map")
 
+info_box = st.empty()
+
 if not df.empty:
     m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
 
