@@ -1,9 +1,10 @@
 import streamlit as st
 
+st.set_page_config(page_title="👀 민원 사용법 | How to Use")
+
 lang = st.session_state.get('lang', 'Korean')
 
 if lang == 'Korean':
-    st.set_page_config(page_title="민원 사용법")
 
     st.title("👀 민원 사용법")
     st.markdown("민원 신고 플랫폼의 각 기능을 아래와 같이 사용할 수 있어요! 사이드바를 통해 각 페이지로 이동하세요!")
@@ -43,8 +44,6 @@ if lang == 'Korean':
     st.page_link("pages/4_⚙️설정.py", label="설정", icon="⚙️")
 
 else:
-    st.set_page_config(page_title="How to Use")
-
     st.title("👀 How to Use")
     st.markdown("You can use each feature of the Complaint Reporting Platform as follows! Navigate to each page via the sidebar!")
 
