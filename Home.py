@@ -9,7 +9,7 @@ st.set_page_config(
 st.markdown("""Home""")
 st.title ("📌 민원 신고 플랫폼에 오신 것을 환영합니다!")
 st.markdown("""
-### 1. 언어를 선택해주세요.
+### 1. 언어를 선택해주세요/ Select Language. 
 """)
 
 lang = st.selectbox('Select Language / 언어 선택', ('Korean', 'English'))

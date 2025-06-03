@@ -43,7 +43,6 @@ if clicked and clicked.get("last_clicked"):
     else:
         st.info(f"Selected location: Latitude {lat:.5f}, Longitude {lon:.5f}")
 
-
 # 현재 좌표 표시
 lat, lon = st.session_state.clicked_latlon
 
