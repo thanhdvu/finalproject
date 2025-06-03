@@ -25,6 +25,6 @@ else:
     ### Easily report residents' inconveniences and solve them together!
     Click the buttons below to start reporting!
     """)
-    st.page_link("pages/1_👀민원_사용법_-_How_to_Use.py", label="👀 How to Use")
-    st.page_link("pages/2_❗️민원_신고하기_-_Report_a_Complaint.py", label="❗ Report a Complaint")
-    st.page_link("pages/3_🔍민원_검색하기_-_Search_Complaints.py", label="🔍 Search Complaints")
+    st.page_link("pages/1_👀민원_사용법_-_How_to_Use.py", label="👀 민원 사용법 - How to Use")
+    st.page_link("pages/2_❗️민원_신고하기_-_Report_a_Complaint.py", label="❗ 민원 신고하기 - Report a Complaint")
+    st.page_link("pages/3_🔍민원_검색하기_-_Search_Complaints.py", label="🔍 민원 검색하기 - Search Complaints")

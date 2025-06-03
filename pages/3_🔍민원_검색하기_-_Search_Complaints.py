@@ -5,8 +5,14 @@ from streamlit_folium import st_folium
 from datetime import date
 from sheets_oauth import load_all_complaints, filter_by_author, count_by_date
 
-st.set_page_config(page_title="민원 검색하기")
-st.title("🔎 민원 검색하기")
+st.set_page_config(page_title="🔍 민원 검색하기 | Search Complaints")
+
+lang = st.session_state.get('lang', 'Korean')
+
+if lang == 'Korean':
+    st.title("🔍 민원 검색하기")
+else:
+    st.title("🔍 Search Complaints")
 
 #데이터 불러오기 (구글 시트에서)
 raw_data = load_all_complaints()
@@ -22,22 +28,29 @@ else:
 # ----------------------------
 # 1️ 작성자별 민원 검색
 # ----------------------------
-st.subheader("1️⃣ 작성자별 민원 검색")
-writer_query = st.text_input("검색할 작성자 이름")
+if lang == 'Korean':
+    st.subheader("1️⃣ 작성자별 민원 검색")
+    writer_query = st.text_input("검색할 작성자 이름")
+else:
+    st.subheader("1️⃣ Search by Author")
+    writer_query = st.text_input("Enter author name to search")
 
 if writer_query:
     filtered = df[df["작성자"] == writer_query]
     if not filtered.empty:
-        st.success(f"'{writer_query}'님의 민원 {len(filtered)}건이 검색되었습니다.")
+        if lang == 'Korean':
+            st.success(f"'{writer_query}'님의 민원 {len(filtered)}건이 검색되었습니다.")
+        else:
+            st.success(f"{len(filtered)} complaints found for '{writer_query}'.")
         st.dataframe(filtered[["작성일", "내용", "민원 종류", "위도", "경도"]])
     else:
-        st.warning("해당 작성자의 민원이 없습니다.")
+        st.warning("해당 작성자의 민원이 없습니다." if lang == 'Korean' else "No complaints found for this author.")
 
 # ----------------------------
 # 2️ 날짜별 민원 수 통계
 # ----------------------------
 st.markdown("---")
-st.subheader("2️⃣ 날짜별 민원 접수 수")
+st.subheader("2️⃣ 날짜별 민원 접수 수" if lang == 'Korean' else "2️⃣ Number of Complaints by Date")
 if not df.empty:
     count_dict = count_by_date()
     count_series = pd.Series(count_dict)
@@ -45,13 +58,13 @@ if not df.empty:
     count_series = count_series.sort_index()
     st.bar_chart(count_series)
 else:
-    st.info("표시할 민원이 없습니다")
+    st.info("표시할 민원이 없습니다." if lang == 'Korean' else "No complaints to display.")
 
 # ----------------------------
 # 3 전체 민원 지도 표시
 # ----------------------------
 st.markdown("---")
-st.subheader("3️⃣ 전체 민원 지도 보기")
+st.subheader("3️⃣ 전체 민원 지도 보기" if lang == 'Korean' else "3️⃣ View All Complaints on Map")
 
 if not df.empty:
     m = folium.Map(location=[37.5665, 126.9780], zoom_start=12)
@@ -74,4 +87,4 @@ if not df.empty:
 
     st_folium(m, height=400, width=700)
 else:
-    st.info("표시할 민원이 없습니다.")
+    st.info("표시할 민원이 없습니다." if lang == 'Korean' else "No complaints to display.")
