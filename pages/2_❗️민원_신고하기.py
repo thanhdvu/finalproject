@@ -19,7 +19,7 @@ default_lat, default_lon = 37.5665, 126.9780
 if "clicked_latlon" not in st.session_state:
     st.session_state.clicked_latlon = (default_lat, default_lon)
 
-# 지도 생성
+# 지도를 보여준다. 
 m = folium.Map(location=[default_lat, default_lon], zoom_start=12)
 m.add_child(folium.LatLngPopup())
 
@@ -53,6 +53,18 @@ if st.button("민원 미리보기"):
         st.write(f"**내용:** {content}")
         st.write(f"**작성일:** {written_date}")
         st.write(f"**위치:** 위도 {st.session_state.clicked_latlon[0]:.6f}, 경도 {st.session_state.clicked_latlon[1]:.6f}")
+
+        from backend import civil_complaint
+        preview = civil_complaint(
+            user=writer,
+            content=content,
+            latitude=st.session_state.clicked_latlon[0],
+            longitude=st.session_state.clicked_latlon[1],
+            complaint_type=complaint_type,
+            created_date=written_date
+        )
+        st.text(str(preview))
+
     else:
         st.warning("작성자와 내용을 모두 입력하세요.")
 
