@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from backend import submit_complaint, civil_complaint
 
-st.set_page_config(page_title="❗️ 민원 신고하기 | Report a Complaint")
+st.set_page_config(page_title="❗️ 민원 신고하기 | Report a Complaint", layout="wide")
 
 lang = st.session_state.get('lang', 'Korean')
 

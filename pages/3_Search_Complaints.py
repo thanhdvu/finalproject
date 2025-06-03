@@ -5,7 +5,7 @@ from streamlit_folium import st_folium
 from datetime import date
 from sheets_oauth import load_all_complaints, filter_by_author, count_by_date
 
-st.set_page_config(page_title="🔍 민원 검색하기 | Search Complaints")
+st.set_page_config(page_title="🔍 민원 검색하기 | Search Complaints", layout="wide")
 
 lang = st.session_state.get('lang', 'Korean')
 
@@ -87,7 +87,7 @@ if not df.empty:
         ).add_to(m)
 
 
-    st_folium(m, height=400, width=700)
+    st_folium(m, height=700, width="100%")
 else:
     st.info("표시할 민원이 없습니다." if lang == 'Korean' else "No complaints to display.")
 

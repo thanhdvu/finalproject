@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="👀 민원 사용법 | How to Use")
+st.set_page_config(page_title="👀 민원 사용법 | How to Use", layout="wide")
 
 lang = st.session_state.get('lang', 'Korean')
 
