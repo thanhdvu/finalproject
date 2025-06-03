@@ -39,7 +39,7 @@ if lang == 'Korean':
     st.subheader("다른 페이지로 이동 👉🏻")
 
     st.page_link("Home.py", label="민원 사용법", icon="🏠")
-    st.page_link("pages/2_❗ 민원_신고하기_-_Report_a_Complaint.py", label="❗ 민원 신고하기 - Report a Complaint")
+    st.page_link("pages/2_❗️민원_신고하기_-_Report_a_Complaint.py", label="❗ 민원 신고하기 - Report a Complaint")
     st.page_link("pages/3_🔍민원_검색하기_-_Search_Complaints.py", label="🔍 민원 검색하기 - Search Complaints")
 
 else:
@@ -75,6 +75,6 @@ else:
     st.markdown("---")
     st.subheader("Go to other pages 👉🏻")
     st.page_link("Home.py", label="Home", icon="🏠")
-    st.page_link("pages/2_❗ 민원_신고하기_-_Report_a_Complaint.py", label="❗ 민원 신고하기 - Report a Complaint")
+    st.page_link("pages/2_❗️민원_신고하기_-_Report_a_Complaint.py", label="❗ 민원 신고하기 - Report a Complaint")
     st.page_link("pages/3_🔍민원_검색하기_-_Search_Complaints.py", label="🔍 민원 검색하기 - Search Complaints")
 
