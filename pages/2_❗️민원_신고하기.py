@@ -5,7 +5,7 @@ from datetime import date
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from backend import submit_complaint
+from backend import submit_complaint, civil_complaint
 
 st.set_page_config(page_title="민원 신고하기")
 
@@ -54,7 +54,6 @@ if st.button("민원 미리보기"):
         st.write(f"**작성일:** {written_date}")
         st.write(f"**위치:** 위도 {st.session_state.clicked_latlon[0]:.6f}, 경도 {st.session_state.clicked_latlon[1]:.6f}")
 
-        from backend import civil_complaint
         preview = civil_complaint(
             user=writer,
             content=content,
