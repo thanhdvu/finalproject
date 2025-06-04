@@ -28,6 +28,13 @@ else:
 # ----------------------------
 # 1️ 작성자별 민원 검색
 # ----------------------------
+
+if "search_result" not in st.session_state: 
+    st.session_state.search_result = None
+
+if "search_name" not in st.session_state:
+    st.session_state.search_name = """sumary_line"""
+    
 if lang == 'Korean':
     st.subheader("1️⃣ 작성자별 민원 검색")
     writer_query = st.text_input("검색할 작성자 이름")
@@ -40,6 +47,12 @@ else:
 if search_button and writer_query: 
     writer_query = writer_query.strip()
     filtered = df[df["작성자"].str.strip() == writer_query]
+    st.session_state.search_result = filtered 
+    st.session_state.search_name = writer_query 
+
+if st.session_state.search_result is not None: 
+    filtered = st.session_state.search_result 
+    name = st.session_state.search_name 
     if not filtered.empty:
         if lang == 'Korean':
             st.success(f"'{writer_query}'님의 민원 {len(filtered)}건이 검색되었습니다.")
