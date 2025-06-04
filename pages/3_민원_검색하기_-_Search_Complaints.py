@@ -38,7 +38,8 @@ else:
     search_button = st.button("Search")
 
 if search_button and writer_query: 
-    filtered = df[df["작성자"] == writer_query]
+    writer_query = writer_query.strip()
+    filtered = df[df["작성자"].str.strip() == writer_query]
     if not filtered.empty:
         if lang == 'Korean':
             st.success(f"'{writer_query}'님의 민원 {len(filtered)}건이 검색되었습니다.")
