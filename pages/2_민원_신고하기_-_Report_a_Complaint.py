@@ -82,10 +82,10 @@ if st.button(preview_button):
             latitude=st.session_state.clicked_latlon[0],
             longitude=st.session_state.clicked_latlon[1],
             complaint_type=complaint_type,
-            created_date=written_date
+            created_date=written_date,
+            lang=lang
         )
         st.text(str(preview))
-
     else:
         st.warning(preview_warning)
 
