@@ -76,12 +76,6 @@ else:
 #미리보기 
 if st.button(preview_button):
     if writer and content:
-        st.success(preview_success)
-        st.write(f"**작성자 / Author:** {writer}")
-        st.write(f"**내용 / Content:** {content}")
-        st.write(f"**작성일 / Date:** {written_date}")
-        st.write(f"**위치 / Location:** 위도 {lat:.6f}, 경도 {lon:.6f}")
-
         preview = civil_complaint(
             user=writer,
             content=content,
