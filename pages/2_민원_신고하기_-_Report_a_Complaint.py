@@ -114,7 +114,7 @@ if st.button(submit_button):
         st.warning(preview_warning)
 
 
-
+#버튼 
 if lang == 'Korean':
     st.markdown("---") 
     st.subheader("다른 페이지로 이동 👉🏻")

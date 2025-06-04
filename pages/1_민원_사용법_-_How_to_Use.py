@@ -58,7 +58,7 @@ else:
     - **Complaint statistics by date** are also available for analysis.
     """)
 
-
+    #버튼 
     st.markdown("---")
     st.subheader("Go to other pages 👉🏻")
     st.page_link("Home.py", label="Home", icon="🏠")
