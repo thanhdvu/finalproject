@@ -4,13 +4,13 @@ from sheets_oauth import setup_sheet_headers, save_complaints_to_sheet
 setup_sheet_headers()
 
 class civil_complaint:
-    def __init__(self, user, content, latitude, longitude, complaint_type, created_date=None, lang='Korean'): #미리보기에서 영어/한국어를 따로 전환하기 위해 lang=Korean을 추가함 
+    def __init__(self, user, content, latitude, longitude, complaint_type, created_date=None, lang='Korean'):
         self.user = user
         self.content = content
         self.latitude = latitude
         self.longitude = longitude
         self.complaint_type = complaint_type
-        self.lang = lang #lang 저장함
+        self.lang = lang 
         if created_date:
             self.created_date = created_date
         else:

@@ -83,7 +83,7 @@ if st.button(preview_button):
             longitude=st.session_state.clicked_latlon[1],
             complaint_type=complaint_type,
             created_date=written_date,
-            lang=lang
+            lang=lang,
         )
         st.text(str(preview))
     else:
