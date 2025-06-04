@@ -31,11 +31,13 @@ else:
 if lang == 'Korean':
     st.subheader("1️⃣ 작성자별 민원 검색")
     writer_query = st.text_input("검색할 작성자 이름")
+    search_button = st.button("조회")
 else:
     st.subheader("1️⃣ Search by Author")
     writer_query = st.text_input("Enter author name to search")
+    search_button = st.button("Search")
 
-if writer_query:
+if search_button and writer_query: 
     filtered = df[df["작성자"] == writer_query]
     if not filtered.empty:
         if lang == 'Korean':
