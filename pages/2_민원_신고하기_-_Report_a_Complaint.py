@@ -62,7 +62,7 @@ if lang == 'Korean':
     submit_fail = "❌ 민원 등록 실패"
 else:
     st.subheader("✍️ Enter Complaint Details")
-    writer = st.text_input("Author's Name")
+    writer = st.text_input("User's Name")
     content = st.text_area("Complaint Content")
     written_date = st.date_input("Date of Submission", value=date.today())
     complaint_type = st.selectbox("Type of Complaint", ["Living Environment", "Facilities/Safety", "Noise/Traffic"])
