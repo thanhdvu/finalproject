@@ -21,4 +21,3 @@ class civil_complaint:
 def submit_complaint(user, content, latitude, longitude, complaint_type, created_date=None):
     complaint = civil_complaint(user, content, latitude, longitude, complaint_type, created_date)
     save_complaints_to_sheet(complaint)
-#I added complaint type here!! 
