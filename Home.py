@@ -28,7 +28,7 @@ if lang == 'Korean':
 
 else:
     st.markdown("""
-    ### Click the buttons below to start reporting!
+    ### 2. Click the buttons below to start reporting!
     """)
     st.page_link("Home.py", label="Home", icon="🏠")
     st.page_link("pages/1_민원_사용법_-_How_to_Use.py", label="How to Use", icon="👀")
