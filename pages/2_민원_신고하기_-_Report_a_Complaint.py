@@ -12,12 +12,25 @@ st.set_page_config(page_title="❗️ 민원 신고하기 | Report a Complaint",
 lang = st.session_state.get('lang', 'Korean')
 
 if lang == 'Korean':
-    st.title("❗️ 민원 신고하기",)
-    st.markdown("지도를 클릭해서 민원 위치를 선택하고, 아래 양식을 작성해 주세요.")
+    st.title("❗️ 민원 신고하기")
+    with st.expander ("**사용법 보기**"):
+        st.markdown(
+        """
+        - 지도를 클릭해서 민원 위치(좌표)를 설정하세요.  
+        - 아래로 스크롤해서 **작성자, 내용, 날짜, 민원 유형**을 입력하세요.  
+        - **[민원 미리보기]** 버튼을 눌러 내용을 확인한 뒤,  
+        - 문제가 없으면 **[민원 등록]** 버튼을 눌러 제출하면 등록이 완료됩니다.
+        """)
 else:
     st.title("❗️ Report a Complaint")
-    st.markdown("Click on the map to select the complaint location, and fill out the form below.")
-
+    with st.expander("**How to Use**"):
+        st.markdown(
+        """
+        - Click on the map to select the complaint location (coordinates).  
+        - Scroll down to enter the **author, content, date, and complaint type**.  
+        - Use the **[Preview Complaint]** button to check your entry.  
+        - Then click the **[Submit Complaint]** button to finish the registration.
+        """)
 # 기본 지도 위치 (서울 시청)
 default_lat, default_lon = 37.5665, 126.9780
 

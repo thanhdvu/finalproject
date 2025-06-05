@@ -11,8 +11,22 @@ lang = st.session_state.get('lang', 'Korean')
 
 if lang == 'Korean':
     st.title("🔍 민원 검색하기")
+    with st.expander ("**사용법 보기**"):
+        st.markdown(
+        """
+        - **작성자별, 날짜별**로 민원을 검색할 수 있습니다.  
+        - 아래에는 지금까지 등록된 민원들이 지도에 표시됩니다.  
+        - **지도 위 아이콘을 클릭하면**, 민원의 **내용, 작성자, 민원 유형**을 확인할 수 있습니다.
+        """)
 else:
     st.title("🔍 Search Complaints")
+    with st.expander("**How to Use**"):
+        st.markdown(
+        """
+        - You can search complaints by **author or date**.  
+        - All registered complaints are shown on the map below.  
+        - **Click on an icon** on the map to see the **content, author, and complaint type** of each complaint.
+        """)
 
 #데이터 불러오기 (구글 시트에서)
 raw_data = load_all_complaints()
