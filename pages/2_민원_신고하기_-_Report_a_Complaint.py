@@ -30,7 +30,7 @@ m = folium.Map(location=[default_lat, default_lon], zoom_start=12)
 m.add_child(folium.LatLngPopup())
 
 
-clicked = st_folium(m, height=400, width="100%")
+clicked = st_folium(m, height=700, width="100%")
 
 info_box = st.empty()
 
