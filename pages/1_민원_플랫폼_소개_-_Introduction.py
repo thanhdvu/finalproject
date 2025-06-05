@@ -97,7 +97,7 @@ else:
     st.markdown("---")
     st.subheader("Go to other pages 👉🏻")
     st.page_link("Home.py", label="Home", icon="🏠")
-    st.page_link("pages/1_소개_페이지_-_Introduction.py", label="Introduction", icon="👀")
+    st.page_link("pages/1_민원_플랫폼_소개_-_Introduction.py", label="Introduction", icon="👀")
     st.page_link("pages/2_민원_신고하기_-_Report_a_Complaint.py", label="Report Complaint", icon="❗")
     st.page_link("pages/3_민원_검색하기_-_Search_Complaints.py", label="Search Complaints", icon="🔍")
 
