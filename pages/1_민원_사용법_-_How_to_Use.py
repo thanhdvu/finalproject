@@ -27,6 +27,13 @@ if lang == 'Korean':
     - **날짜별 민원 통계**도 함께 제공되어 분석이 가능해요.
     """)
 
+    st.markdown("---")
+
+    st.subheader("⚙️ 설정")
+    st.markdown("""
+    - **언어 설정**: 홈페이지에서 언어를 선택할 수 있어요. 
+    - **화면 모드**: 우측 상단 점 세개를 누르고 설정(*Setting*)에 들어가면 다크모드/라이트모드를 선택할 수 있어요. 
+    """)
     
     st.markdown("---") 
     st.subheader("다른 페이지로 이동 👉🏻")
@@ -56,6 +63,14 @@ else:
     - You can **search by author name** to find complaints submitted by a specific user.
     - All complaints are **displayed on the map as markers**, and you can click to view details.
     - **Complaint statistics by date** are also available for analysis.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("⚙️ Settings")
+    st.markdown("""
+    - **Language Setting**: You can select the language on the 'Home' page. Please note that the language will reset to Korean (default) when you return to the homepage or refresh the page.
+    - **Display Mode**: Click the three dots at the top right and go to *Settings* to switch between Dark Mode and Light Mode.
     """)
 
     #버튼 
