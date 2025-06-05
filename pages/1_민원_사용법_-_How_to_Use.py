@@ -35,6 +35,14 @@ if lang == 'Korean':
     - **화면 모드**: 우측 상단 점 세개를 누르고 설정(*Setting*)에 들어가면 다크모드/라이트모드를 선택할 수 있어요. 
     """)
     
+    st.markdown("---")
+
+    st.subheader("🔘 버튼 사용하기")
+    st.markdown("""
+    - 각 페이지 하단에 있는 **버튼**을 클릭하면 다른 페이지로 이동이 가능해요. 
+    - 민원 신고 플랫폼에서 다양한 기능을 사용해 보세요!
+    """)
+
     st.markdown("---") 
     st.subheader("다른 페이지로 이동 👉🏻")
 
@@ -71,6 +79,14 @@ else:
     st.markdown("""
     - **Language Setting**: You can select the language on the 'Home' page. Please note that the language will reset to Korean (default) when you return to the homepage or refresh the page.
     - **Display Mode**: Click the three dots at the top right and go to *Settings* to switch between Dark Mode and Light Mode.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("🔘 Using Buttons")
+    st.markdown("""
+    - You can click the **buttons** at the bottom of each page to navigate to other sections.
+    - Explore the various features of the Civil Complaint Platform!
     """)
 
     #버튼 
